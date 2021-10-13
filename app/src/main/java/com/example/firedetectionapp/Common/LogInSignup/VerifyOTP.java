@@ -1,0 +1,154 @@
+package com.example.firedetectionapp.Common.LogInSignup;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.chaos.view.PinView;
+import com.example.firedetectionapp.Database.UserHelper;
+import com.example.firedetectionapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
+import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.concurrent.TimeUnit;
+
+public class VerifyOTP extends AppCompatActivity {
+
+    PinView pinView;
+    String codeBySystem;
+    String nameS,phoneS,emailS,passwordS,dateS,genderS;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_verify_otp);
+
+        pinView = findViewById(R.id.otp_view);
+
+         nameS = getIntent().getStringExtra("name");
+         emailS = getIntent().getStringExtra("email");
+         passwordS = getIntent().getStringExtra("password");
+         genderS = getIntent().getStringExtra("gender");
+         dateS = getIntent().getStringExtra("date");
+         phoneS = getIntent().getStringExtra("number");
+
+
+        //sendCodeToUser(phoneS);
+    }
+
+    private void sendCodeToUser(String phoneS) {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        PhoneAuthOptions options =
+                PhoneAuthOptions.newBuilder(firebaseAuth)
+                        .setPhoneNumber(phoneS)       // Phone number to verify
+                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                        .setActivity(this)                 // Activity (for callback binding)
+                        .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
+                        .build();
+        PhoneAuthProvider.verifyPhoneNumber(options);
+
+
+        /*PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phoneS,        // Phone number to verify
+                60,                 // Timeout duration
+                TimeUnit.SECONDS,   // Unit of timeout
+                (Activity) TaskExecutors.MAIN_THREAD,// Activity (for callback binding)
+                mCallbacks);*/
+    }
+
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks =
+            new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+                @Override
+                public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                    super.onCodeSent(s, forceResendingToken);
+                    codeBySystem = s;
+                }
+
+                @Override
+                public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                    String code = phoneAuthCredential.getSmsCode();
+                    if (code != null) {
+                        pinView.setText(code);
+                        verifyCode(code);
+
+                    }
+
+
+                }
+
+                @Override
+                public void onVerificationFailed(@NonNull FirebaseException e) {
+                    Toast.makeText(VerifyOTP.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+            };
+
+    private void verifyCode(String code) {
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codeBySystem, code);
+        signInUsingCred(credential);
+    }
+
+    private void signInUsingCred(PhoneAuthCredential credential) {
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "Number Verified", Toast.LENGTH_SHORT).show();
+                            storeNewUserData();
+
+                        } else {
+
+                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                Toast.makeText(VerifyOTP.this, "Verification not completed! Try again", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void storeNewUserData() {
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference reference = rootNode.getReference("Users");
+
+        //DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+
+        UserHelper addNewUser = new UserHelper(nameS,emailS,passwordS,phoneS,dateS,genderS);
+
+        reference.child(phoneS).setValue(addNewUser);
+
+
+    }
+
+
+    public void callHomeScreen(View view) {
+        storeNewUserData();
+
+        /*String code = pinView.getText().toString();
+        if (!code.isEmpty()) {
+            verifyCode(code);
+        }*/
+
+
+    }
+
+
+}

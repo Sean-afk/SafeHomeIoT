@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">Fire Detection App</string>
+
+
+    <string name="fireApp">Safe Home</string>
+    <string name="appMoto">Kill fire before it kills you</string>
+
+
+    <!-- General Menu Names -->
+    <string name="home">HOME</string>
+    <string name="search">SEARCH</string>
+
+    <string name="signup">Sign Up</string>
+    <string name="how">How does it work?</string>
+    <string name="profile">Profile</string>
+    <string name="share">Share</string>
+    <string name="logout">Logout</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="remember">Remember </string>
+    <string name="ok">Ok</string>
+    <string name="back">back</string>
+    <string name="enter_name">Full name</string>
+    <string name="phone">Phone number</string>
+    <string name="next_btn">Next</string>
+
+    <!--Login-->
+    <string name="login">Login</string>
+    <string name="login_hint">Email or Phone number</string>
+    <string name="password_hint">Password</string>
+
+
+    <!--Forgot Password-->
+    <string name="fp_detail">Please enter your registered Email Id</string>
+    <string name="fp_choice">Email</string>
+    <string name="forgot_password">Forgot password</string>
+    <string name="fp_select">Select a Method</string>
+    <string name="fp_det">Select which way you would like to reset your password</string>
+    <string name="sms">via sms:</string>
+    <string name="fp_sms">+91123456781</string>
+    <string name="email">via mail:</string>
+    <string name="fp_email">support@gmail.com</string>
+
+    <!--Reset Password-->
+    <string name="new_cred">New Credentials</string>
+    <string name="new_pass_details">Your identity has been verified!\n Set your new password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="reset_success">Password Updated</string>
+    <string name="success_msg">Your password has been updated!</string>
+
+    <!--OTP-->
+    <string name="code">Co\nde</string>
+    <string name="otp">Verification</string>
+    <string name="otp_des">Enter one time password sent on\n +911234567891</string>
+    <string name="verify">Verify Code</string>
+    <string name="cancel">Cancel btn</string>
+
+
+    <!--Gender-->
+    <string name="gender">Choose gender</string>
+    <string name="male">Male</string>
+    <string name="neutral">Other</string>
+    <string name="female">Female</string>
+
+    <!--Age-->
+    <string name="age">Select your Age</string>
+
+
+</resources>
