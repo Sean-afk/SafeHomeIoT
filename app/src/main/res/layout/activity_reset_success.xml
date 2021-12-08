@@ -6,9 +6,10 @@
     android:background="@color/white"
     android:padding="30dp"
     android:orientation="vertical"
-    tools:context=".Common.LogInSignup.ResetSuccess">
+    tools:context=".Common.ForgotPassword.ResetSuccess">
 
     <ImageView
+        android:contentDescription="@string/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/back"
@@ -33,6 +34,7 @@
             android:textAllCaps="true"/>
 
         <ImageView
+            android:contentDescription="@string/reset_success"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:src="@drawable/done"
@@ -51,6 +53,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="@string/login"
+            android:onClick="goToLogin"
             android:background="@color/black"
             android:textColor="@color/white"
             android:layout_marginTop="20dp"/>

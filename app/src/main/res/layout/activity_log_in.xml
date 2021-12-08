@@ -7,7 +7,7 @@
     android:background="@color/primary"
     android:padding="30dp"
     android:transitionName="transition_login"
-    tools:context=".Common.LogInSignup.LogIn">
+    tools:context=".Common.Login.LogIn">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -115,14 +115,8 @@
                     android:layout_alignParentEnd="true"
                     android:background="#00000000"
                     android:onClick="callResetScreen"
-                    android:text="@string/forgot_password" />
-
-                <ProgressBar
-                    android:id="@+id/login_progress"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_centerInParent="true" />
-
+                    android:text="@string/forgot_password"
+                    tools:ignore="RelativeOverlap" />
 
             </RelativeLayout>
 
@@ -142,6 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/login_btn"
+                android:onClick="goToSignUp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:background="#00000000"

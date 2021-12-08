@@ -1,17 +1,15 @@
-package com.example.firedetectionapp.Common.LogInSignup;
+package com.example.firedetectionapp.Common.Signup;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.firedetectionapp.Common.Login.VerifyOTP;
 import com.example.firedetectionapp.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.hbb20.CountryCodePicker;
@@ -61,6 +59,7 @@ public class SignUp3 extends AppCompatActivity {
         intent.putExtra("name",nameS);
         intent.putExtra("email",emailS);
         intent.putExtra("password",passwordS);
+        intent.putExtra("whatToDo", "createNewUser");
 
         //transition
         Pair[] pairs = new Pair[1];

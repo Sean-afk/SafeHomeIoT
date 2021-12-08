@@ -8,7 +8,7 @@
     android:background="@color/primary"
     android:padding="30dp"
     android:transitionName="transition_otp_screen"
-    tools:context=".Common.LogInSignup.SignUp3">
+    tools:context=".Common.Signup.SignUp3">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,6 +16,7 @@
         android:orientation="vertical">
 
         <ImageView
+            android:contentDescription="@string/back"
             android:id="@+id/signUp_back"
             android:layout_width="40dp"
             android:layout_height="40dp"

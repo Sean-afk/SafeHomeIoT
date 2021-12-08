@@ -1,24 +1,28 @@
 <resources>
-    <string name="app_name">Fire Detection App</string>
-
-
-    <string name="fireApp">Safe Home</string>
+    <!-- App Details -->
+    <string name="app_name">Safe Home</string>
+    <string name="name">Safe Home</string>
     <string name="appMoto">Kill fire before it kills you</string>
 
 
     <!-- General Menu Names -->
     <string name="home">HOME</string>
     <string name="search">SEARCH</string>
-
-    <string name="signup">Sign Up</string>
     <string name="how">How does it work?</string>
     <string name="profile">Profile</string>
     <string name="share">Share</string>
     <string name="logout">Logout</string>
     <string name="rate_us">Rate Us</string>
-    <string name="remember">Remember </string>
     <string name="ok">Ok</string>
+    <string name="update">Update</string>
     <string name="back">back</string>
+    <string name="fire_Detected">Status</string>
+    <string name="status">Show\nstatus</string>
+    <string name="status_off">No fire has been detected</string>
+    <string name="status_on">A fire has been detected</string>
+
+    <!-- Sign Up -->
+    <string name="signup">Sign Up</string>
     <string name="enter_name">Full name</string>
     <string name="phone">Phone number</string>
     <string name="next_btn">Next</string>
@@ -26,11 +30,12 @@
     <!--Login-->
     <string name="login">Login</string>
     <string name="login_hint">Email or Phone number</string>
+    <string name="remember">Remember me</string>
     <string name="password_hint">Password</string>
 
 
     <!--Forgot Password-->
-    <string name="fp_detail">Please enter your registered Email Id</string>
+    <string name="fp_detail">Please enter your registered Mobile Number</string>
     <string name="fp_choice">Email</string>
     <string name="forgot_password">Forgot password</string>
     <string name="fp_select">Select a Method</string>
@@ -64,6 +69,11 @@
 
     <!--Age-->
     <string name="age">Select your Age</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--Catchat-->
+    <string name="inbox">Inbox</string>
 
 
 </resources>

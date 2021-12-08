@@ -1,4 +1,4 @@
-package com.example.firedetectionapp.Common.LogInSignup;
+package com.example.firedetectionapp.Common.Login;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -7,10 +7,10 @@ import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.firedetectionapp.Common.Signup.SignUp;
 import com.example.firedetectionapp.MainActivity;
 import com.example.firedetectionapp.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,12 +38,12 @@ public class StartScreen extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
 
-        /*if (firebaseAuth.getCurrentUser() != null) {
+        if (firebaseAuth.getCurrentUser() != null) {
 
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
 
-        }*/
+        }
 
     }
 

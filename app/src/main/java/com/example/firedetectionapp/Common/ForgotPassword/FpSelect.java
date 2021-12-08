@@ -1,4 +1,4 @@
-package com.example.firedetectionapp.Common.LogInSignup;
+package com.example.firedetectionapp.Common.ForgotPassword;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.firedetectionapp.Common.Login.VerifyOTP;
 import com.example.firedetectionapp.R;
 
 public class FpSelect extends AppCompatActivity {

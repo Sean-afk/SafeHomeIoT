@@ -1,4 +1,4 @@
-package com.example.firedetectionapp.Common.LogInSignup;
+package com.example.firedetectionapp.Common.Signup;
 
 import android.app.ActivityOptions;
 import android.content.Intent;

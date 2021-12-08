@@ -1,4 +1,4 @@
-package com.example.firedetectionapp.Common.LogInSignup;
+package com.example.firedetectionapp.Common.Signup;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.firedetectionapp.Common.Login.LogIn;
+import com.example.firedetectionapp.Common.Login.StartScreen;
 import com.example.firedetectionapp.R;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -57,7 +59,7 @@ public class SignUp extends AppCompatActivity {
         intent.putExtra("email",emailS);
         intent.putExtra("password",passwordS);
 
-        //transition
+        //transition animations
         Pair[] pairs = new Pair[4];
         pairs[0] = new Pair<View, String>(backBtn, "transition_back_btn");
         pairs[1] = new Pair<View, String>(titleText, "transition_title_text");
@@ -68,6 +70,12 @@ public class SignUp extends AppCompatActivity {
         startActivity(intent,options.toBundle());
 
 
+    }
+
+    public void callLoginScreen(View view) {
+        Intent intent = new Intent(getApplicationContext(), LogIn.class);
+        startActivity(intent);
+        finish();
     }
 
     private boolean validateUserName() {

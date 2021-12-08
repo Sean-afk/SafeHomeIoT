@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
 
-    tools:context=".Common.LogInSignup.VerifyOTP">
+    tools:context=".Common.Login.VerifyOTP">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -1,10 +1,7 @@
-package com.example.firedetectionapp.Common.LogInSignup;
+package com.example.firedetectionapp.Common.Login;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
@@ -15,6 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.firedetectionapp.Common.ForgotPassword.ForgetPassword;
+import com.example.firedetectionapp.Common.Signup.SignUp;
+import com.example.firedetectionapp.Database.CheckInternet;
+import com.example.firedetectionapp.Database.SessionManager;
+import com.example.firedetectionapp.MainActivity;
 import com.example.firedetectionapp.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -28,7 +30,7 @@ public class LogIn extends AppCompatActivity {
 
     CountryCodePicker codePicker;
     TextInputLayout phoneNo, password;
-    ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,6 @@ public class LogIn extends AppCompatActivity {
         codePicker = findViewById(R.id.login_code_picker);
         phoneNo = findViewById(R.id.login_phone_verify);
         password = findViewById(R.id.login_password);
-        progressBar = findViewById(R.id.login_progress);
 
     }
 
@@ -49,8 +50,11 @@ public class LogIn extends AppCompatActivity {
 
     public void loginUser(View view) {
 
-        if (!isConnected(this)) {
+        CheckInternet checkInternet = new CheckInternet();
+
+        if (!checkInternet.isConnected(this)) {
             showCustomDialogue();
+            return;
         }
 
 
@@ -59,7 +63,6 @@ public class LogIn extends AppCompatActivity {
 
         }
 
-        progressBar.setVisibility(view.VISIBLE);
 
         String number = phoneNo.getEditText().getText().toString().trim();
         String pass = password.getEditText().getText().toString().trim();
@@ -85,15 +88,24 @@ public class LogIn extends AppCompatActivity {
                         String email = snapshot.child(completePhoneNo).child("email").getValue(String.class);
                         String number = snapshot.child(completePhoneNo).child("phoneNumber").getValue(String.class);
                         String dateBirth = snapshot.child(completePhoneNo).child("dob").getValue(String.class);
+                        String gender = snapshot.child(completePhoneNo).child("gender").getValue(String.class);
+
+                        SessionManager sessionManager = new SessionManager(LogIn.this);
+                        sessionManager.createLoginSession(name,email,systemPassword,number,dateBirth,gender);
+
+                        Intent intent = new Intent(LogIn.this,VerifyOTP.class);
+                        intent.putExtra("number",completePhoneNo);
+                        intent.putExtra("whatToDo","loginUser");
+                        startActivity(intent);
+                        finish();
+
 
                         Toast.makeText(LogIn.this, "Welcome" + name, Toast.LENGTH_SHORT).show();
 
                     } else {
-                        progressBar.setVisibility(View.GONE);
                         Toast.makeText(LogIn.this, "Password does not match", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(LogIn.this, "No such user exists", Toast.LENGTH_SHORT).show();
                 }
 
@@ -101,7 +113,6 @@ public class LogIn extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                progressBar.setVisibility(View.GONE);
                 Toast.makeText(LogIn.this, error.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
@@ -109,6 +120,7 @@ public class LogIn extends AppCompatActivity {
 
 
     }
+
 
     private void showCustomDialogue() {
         AlertDialog.Builder builder = new AlertDialog.Builder(LogIn.this);
@@ -122,28 +134,19 @@ public class LogIn extends AppCompatActivity {
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(getApplicationContext(),StartScreen.class));
+                startActivity(new Intent(getApplicationContext(), StartScreen.class));
                 finish();
 
             }
         });
     }
 
-    private boolean isConnected(LogIn logIn) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) logIn.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo wifiCon = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        NetworkInfo dataCon = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-
-        if ((wifiCon != null && wifiCon.isConnected()) || (dataCon != null && dataCon.isConnected())){
-            return true;
-
-        }else {
-            return false;
-        }
-
+    public void goToSignUp(View view){
+        Intent intent = new Intent(LogIn.this, SignUp.class);
+        startActivity(intent);
+        finish();
 
     }
-
 
 
     private boolean validateFields() {
